@@ -6,6 +6,8 @@ import time
 import traceback
 from pathlib import Path
 
+import cv2
+
 # Ensure src is on sys.path so we can import the clicker package during development
 ROOT = Path(__file__).parent
 SRC = ROOT / 'src'
@@ -17,6 +19,7 @@ from clicker.logging import setup_logging, get_logger
 from clicker import killswitch
 from clicker.killswitch import register_hotkey_with_fallback
 from clicker.imaging import search_and_click
+from clicker.window import minimize_cmd_window
 
 # Minimal entrypoint: collect templates, register killswitch, and run the search loop.
 setup_logging()
@@ -27,7 +30,6 @@ def main():
     templates = []
     if IMAGE_DIR.exists() and IMAGE_DIR.is_dir():
         # rglob('*') finds images in all subfolders (common, 1600, 1900, etc.)
-        import cv2
         for p in IMAGE_DIR.rglob('*'):
             if p.is_file() and p.suffix.lower() in SUPPORTED_EXTS:
                 path_str = str(p)
@@ -45,6 +47,7 @@ def main():
         return
 
     register_hotkey_with_fallback()
+    minimize_cmd_window()
     while True:
         if killswitch.killswitch_activated:
             time.sleep(0.5)
