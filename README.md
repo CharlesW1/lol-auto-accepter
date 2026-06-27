@@ -1,5 +1,9 @@
 # LoL Auto-Accepter
 
+[![License](https://img.shields.io/github/license/CharlesW1/lol-auto-accepter)](LICENSE)
+[![Latest Release](https://img.shields.io/github/v/release/CharlesW1/lol-auto-accepter)](https://github.com/CharlesW1/lol-auto-accepter/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/CharlesW1/lol-auto-accepter/total)](https://github.com/CharlesW1/lol-auto-accepter/releases)
+
 A simple Windows tool that watches your screen during League of Legends queue and lobby screens, automatically clicks **Accept** when a match is found, and re-queues for another game. It works purely by looking at and clicking on your screen — it never reads or modifies any game files.
 
 ## Showcase|Example:
