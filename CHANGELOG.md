@@ -1,6 +1,33 @@
 # CHANGELOG
 
 
+## v1.1.0 (2026-06-27)
+
+### Bug Fixes
+
+- Bundle the clicker package into the built executable
+  ([`693073b`](https://github.com/CharlesW1/Python-Image-Clicker/commit/693073b0659b31ffd7162da8c401b8260b95675f))
+
+PyInstaller's static analysis never discovered src/clicker because the script only adds it to
+  sys.path at runtime (Image-Clicker(v1.2).py adds SRC via sys.path.insert before importing it),
+  which PyInstaller's modulegraph doesn't see. Every released exe (confirmed on the published v1.0.1
+  asset) crashed immediately with "ModuleNotFoundError: No module named 'clicker'". Passing --paths
+  src lets PyInstaller's analyzer find and bundle the package correctly; verified via its own
+  module-discovery output, which now shows zero missing clicker submodules.
+
+### Features
+
+- Add auto-accept-only build variant
+  ([`b73ece1`](https://github.com/CharlesW1/Python-Image-Clicker/commit/b73ece18bc6b1d66e6ec978adf1b7bd24240df2c))
+
+Adds a second release executable, Image-Clicker-auto-accept.exe, that only bundles the accept/
+  template folder -- just clicking the ready-check Accept button, with none of the find-match or
+  post-game buttons (find_match/play_again/continue/skip_stats). No script changes needed since
+  template discovery is already dynamic (IMAGE_DIR.rglob); this just points a second PyInstaller
+  build at a curated image subset. Wired up in both the CI release workflow and the local
+  build_exe.bat script.
+
+
 ## v1.0.1 (2026-06-27)
 
 ### Bug Fixes
