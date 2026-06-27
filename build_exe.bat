@@ -51,6 +51,24 @@ IF %ERRORLEVEL% NEQ 0 (
   EXIT /B %ERRORLEVEL%
 )
 
-ECHO Build complete. See the dist folder for Image-Clicker-auto-queue.exe.
+REM Build: auto-accept-only preset (just clicking Accept, no find-match or postgame buttons)
+ECHO Building auto-accept-only preset...
+if exist images_accept_only rmdir /s /q images_accept_only
+mkdir images_accept_only
+xcopy /E /I /Y images\accept images_accept_only\accept
+
+pyinstaller --noconfirm --clean --onefile --name "Image-Clicker-auto-accept" ^
+  --paths src ^
+  --add-data "images_accept_only;images" ^
+  --add-data "clicker.log;." ^
+  "Image-Clicker(v1.2).py"
+
+IF %ERRORLEVEL% NEQ 0 (
+  ECHO PyInstaller failed with exit code %ERRORLEVEL%.
+  PAUSE
+  EXIT /B %ERRORLEVEL%
+)
+
+ECHO Build complete. See the dist folder for Image-Clicker-auto-queue.exe and Image-Clicker-auto-accept.exe.
 PAUSE
 

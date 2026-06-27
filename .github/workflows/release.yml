@@ -45,16 +45,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
-      - name: Build executable
+      - name: Build full auto-queue executable
         run: |
           if (!(Test-Path "clicker.log")) {
             New-Item -ItemType File -Path "clicker.log" -Force
           }
           pyinstaller --noconfirm --clean --onefile --name "Image-Clicker-auto-queue" --paths src --add-data "images;images" --add-data "clicker.log;." "Image-Clicker(v1.2).py"
-      - name: Upload Release Asset
+      - name: Stage auto-accept-only image subset
+        run: |
+          New-Item -ItemType Directory -Force -Path "images_accept_only" | Out-Null
+          Copy-Item -Recurse -Force "images/accept" "images_accept_only/accept"
+      - name: Build auto-accept-only executable
+        run: |
+          pyinstaller --noconfirm --clean --onefile --name "Image-Clicker-auto-accept" --paths src --add-data "images_accept_only;images" --add-data "clicker.log;." "Image-Clicker(v1.2).py"
+      - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.release.outputs.tag }}
-          files: dist/Image-Clicker-auto-queue.exe
+          files: |
+            dist/Image-Clicker-auto-queue.exe
+            dist/Image-Clicker-auto-accept.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

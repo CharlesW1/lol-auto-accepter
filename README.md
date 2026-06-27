@@ -15,6 +15,13 @@ This Python script is designed to automate the process of searching for specific
 - **Logging**: Logs events and errors to a file for debugging and monitoring.
 - **Customizable**: Allows customization of parameters such as threshold, click delay, and killswitch key.
 
+## Prebuilt Executables
+Each [release](https://github.com/CharlesW1/Python-Image-Clicker/releases) publishes two standalone Windows executables — no Python install required:
+- **`Image-Clicker-auto-queue.exe`** — the full game loop: Find Match, Accept, and the post-game buttons (Play Again, Continue, Skip Stats).
+- **`Image-Clicker-auto-accept.exe`** — accept-only: just auto-clicks the ready-check Accept button, nothing else (no Find Match, no post-game buttons).
+
+Download whichever one matches what you want automated and run it directly.
+
 ## Requirements
 - Python 3.x
 - OpenCV (`cv2`)
