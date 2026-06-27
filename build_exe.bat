@@ -40,6 +40,7 @@ REM Build: one-file (single exe). This bundles resources into a single executabl
 REM Note: onefile extracts resources at runtime to a temp folder accessible via sys._MEIPASS
 ECHO Building auto-queue preset...
 pyinstaller --noconfirm --clean --onefile --name "Image-Clicker-auto-queue" ^
+  --paths src ^
   --add-data "images;images" ^
   --add-data "clicker.log;." ^
   "Image-Clicker(v1.2).py"
